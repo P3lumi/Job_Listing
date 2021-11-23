@@ -17,6 +17,8 @@ namespace Models
         public double StartPrice { get; set; }
         [Required]
         public double EndPrice { get; set; }
+        public Category category { get; set; }
+        public Industry industry { get; set; }
         public string SalaryRange
         {
             get

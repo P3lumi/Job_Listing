@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace JobListing.UI.Services
 {
-  public interface IService
+  public interface IJwtService
     {
         public string GenerateToken();
         

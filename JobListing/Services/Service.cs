@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace JobListing.UI.Services
 {
-    public class Service : IService
+    public class Service : IJwtService
     {
         private readonly IConfiguration _configuration;
 

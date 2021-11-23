@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class Role
+    public class Roles
     {
         public string Id { get; set; }
         public string Role { get; set; }
+        public User user { get; set; }
     }
 }

@@ -13,9 +13,9 @@ namespace JobListing.UI.Controllers
     [ApiController]
     public class AuthorizationController : ControllerBase
     {
-        private readonly IService _jwt;
+        private readonly IJwtService _jwt;
 
-        public AuthorizationController(IService jwt)
+        public AuthorizationController(IJwtService jwt)
         {
             _jwt = jwt;
         }
