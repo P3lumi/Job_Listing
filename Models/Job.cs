@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,13 @@ namespace Models
 {
    public class Job
     {
+        [Required]
         public string JobTitle { get; set; }
+        [Required]
         public string JobDescription { get; set; }
+        [Required]
         public double StartPrice { get; set; }
+        [Required]
         public double EndPrice { get; set; }
         public string SalaryRange
         {
@@ -62,23 +67,23 @@ namespace Models
             Ondo
                     
         }
-        enum Industry
-        {
-            Education,
-            Fashion,
-            Technology,
-            Healthcare,
-            Agriculture,
-            Hospitality,
-            Tourism,
-            Telecommunication,
-            Engineering,
-            Advertising,
-            Media,
-            Marketing,
-            Entertainment,
-            Finance,
-            Food
-        }
+        //enum Industry
+        //{
+        //    Education,
+        //    Fashion,
+        //    Technology,
+        //    Healthcare,
+        //    Agriculture,
+        //    Hospitality,
+        //    Tourism,
+        //    Telecommunication,
+        //    Engineering,
+        //    Advertising,
+        //    Media,
+        //    Marketing,
+        //    Entertainment,
+        //    Finance,
+        //    Food
+        //}
     }
 }

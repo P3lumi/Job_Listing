@@ -10,8 +10,6 @@ namespace Models
     {
         public string CategoryName { get; set; }
         public string CategoryId { get; set; }
-
-
         public string TimeCreated { get; set; }
         public string TimeUpdated { get; set; }
 
