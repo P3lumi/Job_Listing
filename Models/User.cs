@@ -18,7 +18,7 @@ namespace Models
         [Required]
         public string Password { get; set; }
 
-        public ICollection<Roles> roles { get; set; }
+        public List<Roles> roles { get; set; }
 
         public User()
         {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Industry:BaseEntity
+    public class Applicant:User 
     {
-        public List<Job> industry = new List<Job>();
-
+        
+        public string Address { get; set; }
     }
 }

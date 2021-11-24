@@ -10,6 +10,6 @@ namespace Models
     {
         public string Id { get; set; }
         public string Role { get; set; }
-        public User user { get; set; }
+        public User UserId { get; set; }
     }
 }

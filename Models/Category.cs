@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Category
+    public class Category: BaseEntity
     {
         public string CategoryName { get; set; }
-        public string CategoryId { get; set; }
-        public string TimeCreated { get; set; }
-        public string TimeUpdated { get; set; }
-        public ICollection<Job> JobCategory { get; set; }
+      
+        public List<Job> JobCategory { get; set; }
         public Category()
         {
-            this.CategoryId = Guid.NewGuid().ToString();
-            this.TimeCreated = DateTime.Now.ToString("ddd, dd MMM yyyy");
-            this.TimeUpdated = DateTime.Now.ToString("ddd, dd MMM yyyy");
+            
             this.JobCategory = new List<Job>();
+
         }
 
     }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Industry:BaseEntity
+    public class UploadCv
     {
-        public List<Job> industry = new List<Job>();
+        public string JobId { get; set; }
 
+        public string UserId { get; set; }
     }
 }

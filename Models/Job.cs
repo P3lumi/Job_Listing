@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-   public class Job
+    public class Job: BaseEntity
     {
-        [Required]
+       
         public string JobTitle { get; set; }
-        [Required]
+        
         public string JobDescription { get; set; }
-        [Required]
+        
         public double StartPrice { get; set; }
-        [Required]
+        
         public double EndPrice { get; set; }
-        public Category category { get; set; }
-        public Industry industry { get; set; }
+        public Category Category { get; set; }
+        public Industry Industry { get; set; }
         public string SalaryRange
         {
             get
@@ -26,6 +26,8 @@ namespace Models
                 return $"{StartPrice} to {EndPrice}";
             }
         }
+
+       
 
         enum JobType
         { 
