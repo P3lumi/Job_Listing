@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JobListing.UI.DTO
+namespace Models.DTO
 {
     public class JobDto
     {
@@ -14,15 +14,25 @@ namespace JobListing.UI.DTO
         [Display(Name ="Job Title")]
         public string JobTitle { get; set; }
 
+
         [Required] 
         [Display(Name ="Job Description")]
         public string JobDescription { get; set; }
 
-        
+
+        [Required]
         public double StartPrice { get; set; }
+
+
         [Required]
         public double EndPrice { get; set; }
+
+
+        [Required]
         public Category category { get; set; }
+
+
+        [Required]
         public Industry industry { get; set; }
     }
 }

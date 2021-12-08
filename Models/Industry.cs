@@ -8,7 +8,13 @@ namespace Models
 {
     public class Industry:BaseEntity
     {
-        public List<Job> industry = new List<Job>();
+        public string Name { get; set; }
+        public List<Job> Jobs = new List<Job>();
+
+        public Industry()
+        {
+            Jobs = new List<Job>();
+        }
 
     }
 }

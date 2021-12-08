@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class User
+    public class User: BaseEntity
     {
 
-        public string UserId { get; set; }
+        //public string UserId { get; set; }
         [Required]
         public string Firstname { get; set; }
         [Required]
@@ -15,15 +15,21 @@ namespace Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
 
-        public List<Roles> roles { get; set; }
+
+        [Required]
+        public string PasswordHash { get; set; }
+        [Required]
+        public string PasswordSalt { get; set; }
+
+
+
+        public List<Role> roles { get; set; }
 
         public User()
         {
-            this.UserId = Guid.NewGuid().ToString();
-            this.roles = new List<Roles>();
+           
+            this.roles = new List<Role>();
 
         }
 

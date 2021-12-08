@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Category: BaseEntity
+    public class Role: BaseEntity
     {
         public string Name { get; set; }
-      
-        public List<Job> Jobs { get; set; }
-        public Category()
+
+        public List<UserRole> UserRoles { get; set; }
+
+        public Role()
         {
-            
-            Jobs = new List<Job>();
-
+            UserRoles = new List<UserRole>();
         }
-
     }
 }

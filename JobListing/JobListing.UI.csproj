@@ -10,7 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JobListing.Data\JobListing.Data.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\Services\JobListing.Core.csproj" />
   </ItemGroup>
 
 </Project>

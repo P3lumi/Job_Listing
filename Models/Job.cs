@@ -7,18 +7,25 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Job: BaseEntity
+    public class Job : BaseEntity
     {
-       
-        public string JobTitle { get; set; }
-        
-        public string JobDescription { get; set; }
-        
+
+        public string Title { get; set; }
+        public string Description { get; set; }
+
+
         public double StartPrice { get; set; }
-        
         public double EndPrice { get; set; }
+
+
+        public string CategoryId { get; set; }
         public Category Category { get; set; }
+
+
+        public string IndustryId { get; set; }
         public Industry Industry { get; set; }
+
+
         public string SalaryRange
         {
             get
@@ -27,67 +34,6 @@ namespace Models
             }
         }
 
-       
-
-        enum JobType
-        { 
-            FullTime,
-            PartTime,
-            Contract,
-            Internship,
-            Freelance
-
-        }
-
-        enum Location
-        {
-            Abia,
-            Abuja,
-            Adamawa,
-            AkwaIbom,
-            Anambra,
-            Bauchi,
-            Bayelsa,
-            Benue,
-            CrossRiver,
-            Delta,
-            Ebonyi,
-            Edo,
-            Ekiti,
-            Enugu,
-            Gombe,
-            Imo,
-            Jigawa,
-            Kaduna,
-            Kano,
-            Katsina,
-            Kebbi,
-            Kogi,
-            Kwara,
-            Lagos,
-            Nasarawa,
-            Niger,
-            Ogun,
-            Ondo
-                    
-        }
-        //enum Industry
-        //{
-        //    Education,
-        //    Fashion,
-        //    Technology,
-        //    Healthcare,
-        //    Agriculture,
-        //    Hospitality,
-        //    Tourism,
-        //    Telecommunication,
-        //    Engineering,
-        //    Advertising,
-        //    Media,
-        //    Marketing,
-        //    Entertainment,
-        //    Finance,
-        //    Food
-        //}
     }
 }
+       

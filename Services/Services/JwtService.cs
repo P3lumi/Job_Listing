@@ -7,18 +7,19 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
+using Models;
 
-namespace JobListing.UI.Services
+namespace JobListing.Core.Services
 {
-    public class Service : IJwtService
+    public class JwtService : IJwtService
     {
         private readonly IConfiguration _configuration;
 
-        public Service(IConfiguration configuration)
+        public JwtService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        public string GenerateToken()
+        public string GenerateToken(User u, List<string> roles)
         {
             var claims = new List<Claim>();
             var claim = new Claim(ClaimTypes.NameIdentifier, "MyClaim");

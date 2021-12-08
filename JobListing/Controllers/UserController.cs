@@ -11,5 +11,40 @@ namespace JobListing.UI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+
+                
+
+        [HttpGet("View profile")]
+        public IActionResult ViewProfile()
+        {
+
+            return Ok();
+        }
+
+
+        [HttpPatch("Edit Profile")]
+        public IActionResult EditProfile()
+        {
+
+            return Ok();
+        }
+
+
+        [HttpPost("Deactivate Profile")]
+        public IActionResult DeactivateProfile()
+        {
+
+            return Ok();
+        }
+
+
+        [HttpPost("Reactivate Profile")]
+        public IActionResult ReactivateProfile()
+        {
+
+            return Ok();
+        }
+
+
     }
 }

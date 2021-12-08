@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobListing.Core", "Services\JobListing.Core.csproj", "{44F83FC7-3F78-4DA2-9896-7A5E1DB18F3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobListing.Common", "JobListing.Common\JobListing.Common.csproj", "{743F1FD3-0D42-4A3E-A908-D61EF5802AEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobListing.Common", "JobListing.Common\JobListing.Common.csproj", "{743F1FD3-0D42-4A3E-A908-D61EF5802AEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
