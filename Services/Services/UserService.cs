@@ -31,6 +31,11 @@ namespace JobListing.Core.Services
             return true;
         }
 
+        public Task<int> DeleteUser()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<User>> GetUsers()
         {
             var response = await _userRepo.GetUsers();
