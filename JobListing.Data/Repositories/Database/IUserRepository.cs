@@ -12,8 +12,9 @@ namespace JobListing.Data.Repositories.Database
     {
         Task<bool> Add<T>(T entity);
         Task<List<User>> GetUsers();
+        //Task<int> DeleteUser(string userid);
 
-        Task<int> DeleteUser();
+
 
     }
 }

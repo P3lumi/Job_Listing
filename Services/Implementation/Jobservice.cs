@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JobListing.Core.Services
 {
-    class Jobservice : IJobService
+    public class Jobservice : IJobService
     {
         public Task<bool> AddJob()
         {

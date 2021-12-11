@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,9 @@ namespace JobListing.Data.Interface
    public interface ICRUDRepo
     {
         Task<bool> Add<T>(T entity);
-        //Task<> GetById(T id);
-        // Task<> Delete(T id);
-        Task SaveUser();
+        Task<List<User>> GetUsers();
+        Task<int> Delete(string userid);
+        
 
 
     }

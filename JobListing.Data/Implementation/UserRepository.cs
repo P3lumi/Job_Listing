@@ -130,7 +130,9 @@ namespace JobListing.Data.Repositories.Database
 
         }
 
-
-
+        public Task<int> Delete(string userid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
