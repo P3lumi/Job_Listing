@@ -47,10 +47,10 @@ namespace JobListing.UI.Controllers
 
 
         [HttpGet("View_profile")]
-        public IActionResult ViewProfile(string email)
+        public async Task< IActionResult> ViewProfile(string email)
         {
 
-            var response = _userService.GetUserByEmail(email);
+            var response = await _userService.GetUserByEmail(email);
             return Ok(response);
 
         }
@@ -66,10 +66,10 @@ namespace JobListing.UI.Controllers
 
 
         [HttpPost("Deactivate_Profile")]
-        public IActionResult DeactivateProfile(string userId)
+        public IActionResult DeactivateProfile(string email)
         {
 
-            var response = _userService.DeleteUser(userId);
+            var response = _userService.DeleteUser(email);
             return Ok(response);
         }
 

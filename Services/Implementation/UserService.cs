@@ -38,14 +38,14 @@ namespace JobListing.Core.Services
             return true;
         }
 
-        public async Task<bool> DeleteUser(string userId)
+        public async Task<bool> DeleteUser(string email)
         {
 
             bool response = false;
 
             try
             {
-                if (await _userRepo.Delete(userId))
+                if (await _userRepo.Delete(email))
                 {
                     response = true;
 

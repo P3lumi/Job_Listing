@@ -35,14 +35,14 @@ namespace JobListing.Data.EFCore.Implementation
 
         public async Task<bool> Delete<T>(T entity)
         {
-            var userId = entity as string;
-            var user = await GetUserById(userId);
+            var email = entity as string;
+            var user = await GetUserByEmail(email);
             var delete = await userManager.DeleteAsync(user);
             if (delete.Succeeded)
             {
                 return true;
             }
-                     return false;   
+           return false;   
         }
 
         public async Task<bool> Edit<T>(T entity)
