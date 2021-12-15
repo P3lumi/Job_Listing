@@ -18,9 +18,9 @@ namespace Models
 
 
         [Required]
-        public string PasswordHash { get; set; }
+        public byte[] PasswordHash { get; set; }
         [Required]
-        public string PasswordSalt { get; set; }
+        public byte[] PasswordSalt { get; set; }
 
 
 

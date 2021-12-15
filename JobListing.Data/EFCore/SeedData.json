@@ -1,0 +1,159 @@
+﻿[
+  {
+    "lastName": "Flynn",
+    "firstName": "Lancaster",
+    "gender": "male",
+    "email": "lancasterflynn@magnafone.com",
+    "isActive": false,
+    "address": {
+      "street": "Emerald Street",
+      "state": "Vermont",
+      "country": "Myanmar"
+    }
+  },
+  {
+    "lastName": "Peterson",
+    "firstName": "Grant",
+    "gender": "male",
+    "email": "grantpeterson@magnafone.com",
+    "isActive": true,
+    "address": {
+      "street": "Kent Street",
+      "state": "Virginia",
+      "country": "Bulgaria"
+    }
+  },
+  {
+    "lastName": "Tate",
+    "firstName": "Lottie",
+    "gender": "male",
+    "email": "lottietate@magnafone.com",
+    "isActive": false,
+    "address": {
+      "street": "Midwood Street",
+      "state": "Wisconsin",
+      "country": "Nigeria"
+    }
+  },
+  {
+    "lastName": "Grimes",
+    "firstName": "Odonnell",
+    "gender": "male",
+    "email": "odonnellgrimes@magnafone.com",
+    "isActive": true,
+    "address": {
+      "street": "Kensington Street",
+      "state": "North Dakota",
+      "country": "Aruba"
+    }
+  },
+  {
+    "lastName": "Duran",
+    "firstName": "Schneider",
+    "gender": "male",
+    "email": "schneiderduran@magnafone.com",
+    "isActive": true,
+    "address": {
+      "street": "Meadow Street",
+      "state": "Texas",
+      "country": "Moldova"
+    }
+  },
+  {
+    "lastName": "Evans",
+    "firstName": "Ann",
+    "gender": "male",
+    "email": "annevans@magnafone.com",
+    "isActive": false,
+    "address": {
+      "street": "Waldane Court",
+      "state": "West Virginia",
+      "country": "Netherlands"
+    }
+  },
+
+  {
+    "lastName": "Neal",
+    "firstName": "Mcpherson",
+    "gender": "female",
+    "email": "mcphersonneal@magnafone.com",
+    "isActive": true,
+    "address": {
+      "street": "Bedford Place",
+      "state": "Michigan",
+      "country": "Hungary"
+    }
+  },
+  {
+    "lastName": "Hayes",
+    "firstName": "Haley",
+    "gender": "female",
+    "email": "haleyhayes@magnafone.com",
+    "isActive": false,
+    "address": {
+      "street": "Ryerson Street",
+      "state": "California",
+      "country": "Lebanon"
+    }
+  },
+  {
+    "lastName": "Lambert",
+    "firstName": "Noble",
+    "gender": "female",
+    "email": "noblelambert@magnafone.com",
+    "isActive": true,
+    "address": {
+      "street": "Tiffany Place",
+      "state": "Northern Mariana Islands",
+      "country": "Ukraine"
+    }
+  },
+  {
+    "lastName": "Perry",
+    "firstName": "Blackburn",
+    "gender": "female",
+    "email": "blackburnperry@magnafone.com",
+    "isActive": false,
+    "address": {
+      "street": "Milton Street",
+      "state": "Palau",
+      "country": "Liechtenstein"
+    }
+  },
+  {
+    "lastName": "Mcdowell",
+    "firstName": "Therese",
+    "gender": "female",
+    "email": "theresemcdowell@magnafone.com",
+    "isActive": false,
+    "address": {
+      "street": "Highland Avenue",
+      "state": "North Dakota",
+      "country": "Guinea"
+    }
+  },
+  {
+    "lastName": "Stout",
+    "firstName": "Cathleen",
+    "gender": "female",
+    "email": "cathleenstout@magnafone.com",
+    "isActive": true,
+    "address": {
+      "street": "Heyward Street",
+      "state": "Puerto Rico",
+      "country": "Indonesia"
+    }
+  },
+  {
+    "lastName": "Duke",
+    "firstName": "Dorothy",
+    "gender": "female",
+    "email": "dorothyduke@magnafone.com",
+    "isActive": true,
+    "address": {
+      "street": "Corbin Place",
+      "state": "Virgin Islands",
+      "country": "Iceland"
+    }
+  }
+]

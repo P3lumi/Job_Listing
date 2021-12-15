@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using JobListing.Core.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Models;
+using Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,37 +17,69 @@ namespace JobListing.UI.Controllers
     public class UserController : ControllerBase
     {
 
-                
 
-        [HttpGet("View profile")]
-        public IActionResult ViewProfile()
+        private readonly ILogger<UserController> logger;
+        private ILogger<UserController> _logger;
+        private readonly IUserService _userService; 
+        private readonly UserManager<AppUser> _userMgr;
+
+
+
+        public UserController(ILogger<UserController> logger, IUserService userService,
+            UserManager<AppUser> userManager)
         {
-
-            return Ok();
+            _logger = logger;
+            _userService = userService;
+            _userMgr = userManager;
         }
 
 
-        [HttpPatch("Edit Profile")]
-        public IActionResult EditProfile()
+        [HttpGet("get_users")]
+        public IActionResult GetUsers()
         {
+            //map data from db to reshape it and remove null fields
+            
 
-            return Ok();
+            var response = _userService.GetUsers();
+            return Ok(response);
         }
 
 
-        [HttpPost("Deactivate Profile")]
-        public IActionResult DeactivateProfile()
+
+        [HttpGet("View_profile")]
+        public IActionResult ViewProfile(string email)
         {
 
-            return Ok();
+            var response = _userService.GetUserByEmail(email);
+            return Ok(response);
+
         }
 
 
-        [HttpPost("Reactivate Profile")]
-        public IActionResult ReactivateProfile()
+        [HttpPatch("Edit_Profile")]
+        public IActionResult EditProfile(UserDto user)
         {
 
-            return Ok();
+            var response = _userService.EditUser(user);
+            return Ok(response);
+        }
+
+
+        [HttpPost("Deactivate_Profile")]
+        public IActionResult DeactivateProfile(string userId)
+        {
+
+            var response = _userService.DeleteUser(userId);
+            return Ok(response);
+        }
+
+
+        [HttpPost("Reactivate_Profile")]
+        public IActionResult ReactivateProfile(UserDto user)
+        {
+
+            var response = _userService.AddUser(user); 
+            return Ok(response);
         }
 
 

@@ -1,4 +1,7 @@
-﻿using Models;
+﻿using JobListing.Data.Repositories.Database;
+using Models;
+using Models.DTO;
+using Models.JobDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +10,23 @@ using System.Threading.Tasks;
 
 namespace JobListing.Core.Services
 {
-    public class Jobservice : IJobService
+    public class JobService : IJobService
     {
-        public Task<bool> AddJob()
+
+        private readonly IJobRepository _jobRepo;
+        public JobService(IJobRepository jobRepository)
+        {
+            _jobRepo = jobRepository;
+        }
+        public List<Job> Jobs
+        {
+            get
+            {
+                return _jobRepo.GetJobs().Result;
+            }
+        }
+
+        public Task<bool> AddJob(JobDto job)
         {
             throw new NotImplementedException();
         }
@@ -19,17 +36,27 @@ namespace JobListing.Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<int> DeleteJob()
+        public Task<bool> DeleteJob(string jobId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Job>> GetJob()
+        public Task<Job> EditJob(JobDto job)
         {
             throw new NotImplementedException();
         }
 
-        public Task SearchJob()
+        public Task<Job> GetJobByCategory(string category)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Job> GetJobByIndustry(string industry)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<JobToReturnDto>> GetJobs()
         {
             throw new NotImplementedException();
         }
@@ -38,5 +65,43 @@ namespace JobListing.Core.Services
         {
             throw new NotImplementedException();
         }
+
+
+        //public async Task<bool> DeleteJob(JobDto job)
+        //{
+        //    var status = false;
+        //    try
+        //    {
+        //        if (await _jobRepo.Delete<Job>(job))
+        //        {
+        //            status = true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //    return status;
+        //}
+
+
+        //public async Task<List<Job>> GetJobs(string JobId)
+        //{
+        //    User job = null;
+        //    try
+        //    {
+        //        job = await _jobRepo.GetJobs(JobId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw new Exception(ex.Message);
+        //    }
+        //    return job; throw new NotImplementedException();
+        //}
+
+
+
+
     }
 }

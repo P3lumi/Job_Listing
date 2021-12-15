@@ -8,7 +8,7 @@ namespace JobListing.Core.Services
 {
   public interface IJwtService
     {
-        public string GenerateToken(User user, List<string> userRoles);
-        
+        //string GenerateToken(User user, List<string> userRoles);
+        string GenerateToken(AppUser response, List<string> roles);
     }
 }

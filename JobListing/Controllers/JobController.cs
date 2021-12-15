@@ -12,7 +12,7 @@ namespace JobListing.UI.Controllers
     public class JobController : ControllerBase
     {
 
-        [HttpPost("Add Job")]
+        [HttpPost("Add_Job")]
         public IActionResult AddJob()
         {
 
@@ -20,15 +20,9 @@ namespace JobListing.UI.Controllers
         }
 
 
-        [HttpGet("Job Description")]
-        public IActionResult ViewJobDescription()
-        {
-
-            return Ok();
-        }
 
 
-        [HttpGet("Search by name")]
+        [HttpGet("Search_by_name")]
         public IActionResult SearchJobByName()
         {
 
@@ -36,7 +30,7 @@ namespace JobListing.UI.Controllers
         }
 
 
-        [HttpGet("Search by category")]
+        [HttpGet("Search_by_category")]
         public IActionResult SearchJobByCategory()
         {
 
@@ -45,16 +39,16 @@ namespace JobListing.UI.Controllers
 
 
 
-        [HttpPost("Upload CV")]
-        public IActionResult UploadCv()
-        {
+        //[HttpPost("Upload_CV")]
+        //public IActionResult UploadCv()
+        //{
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
 
-        [HttpDelete("Delete Job")]
+        [HttpDelete("Delete _job")]
         public IActionResult DeleteJob()
         {
 

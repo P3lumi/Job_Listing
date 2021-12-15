@@ -10,7 +10,13 @@ namespace JobListing.Core.Services
     public interface IUserService
     {
         Task<bool> AddUser(UserDto user);
-        Task<List<User>> GetUsers();
-        Task<int> DeleteUser();
+
+        Task<bool> DeleteUser(string userId);
+        Task<List<UserToReturnDto>> GetUsers();
+        Task<AppUser> GetUserByEmail(string email);
+        Task<AppUser> GetUserById(string id); 
+        Task<AppUser> EditUser(UserDto user);
+        
+
     }
 }

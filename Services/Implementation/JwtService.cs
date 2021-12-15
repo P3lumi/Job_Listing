@@ -19,7 +19,7 @@ namespace JobListing.Core.Services
         {
             _configuration = configuration;
         }
-        public string GenerateToken(User u, List<string> roles)
+        public string GenerateToken(AppUser response, List<string> roles)
         {
             var claims = new List<Claim>();
             var claim = new Claim(ClaimTypes.NameIdentifier, "MyClaim");

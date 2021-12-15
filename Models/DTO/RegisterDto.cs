@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.DTO
 {
-    class RegisterApplicantDto
+    class RegisterDto
     {
 
         [Required]
@@ -20,7 +20,7 @@ namespace Models.DTO
 
         [Required]
         [EmailAddress(ErrorMessage ="Please enter a valid email")]
-        public string Email { get; set; }
+        public string Email { get; set; }  
 
 
         [Required]

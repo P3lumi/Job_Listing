@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace JobListing.Data.Repositories.Database
 {
-    interface IJobRepository
+    public interface IJobRepository
     {
-        
-        Task<List<Job>> GetUsers();
-        Task<int> DeleteJob(string jobid);
+
+        Task<List<Job>> GetJobs();
+        Task<Job> GetUserByCategory(string category);
+        Task<Job> GetUserByIndustry(string industry);
 
     }
-}
+} 

@@ -1,16 +1,25 @@
+using AutoMapper;
+using JobListing.Core.Implementation;
+using JobListing.Core.Interface;
 using JobListing.Core.Services;
-using JobListing.Data.Repositories.Database;
+using JobListing.Data.EFCore;
+using JobListing.Data.EFCore.Implementation;
+using JobListing.Data.EFCore.Interface;
+//using JobListing.Data.Repositories.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +41,22 @@ namespace JobListing
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContextPool<JobListingContext>(option =>
+            option.UseSqlServer(Configuration.GetConnectionString("EfCore")));
+
+
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            //services.AddScoped<IADOOperations, ADOOperation>();
+            services.AddTransient<SeederClass>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<JobListingContext>();
+
+
+
+            services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobListing", Version = "v1" });
@@ -74,15 +99,12 @@ namespace JobListing
 
                 }
                 );
-            services.AddScoped<IJwtService, JwtService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IADOOperations, ADOOperation>();
+                                          
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeederClass seed)
         {
             if (env.IsDevelopment())
             {
@@ -102,6 +124,10 @@ namespace JobListing
             {
                 endpoints.MapControllers();
             });
+
+
+            seed.SeedMe().Wait();
+
 
 
         }

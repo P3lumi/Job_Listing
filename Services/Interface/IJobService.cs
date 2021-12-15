@@ -1,4 +1,6 @@
 ﻿using Models;
+using Models.DTO;
+using Models.JobDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +11,16 @@ namespace JobListing.Core.Services
 {
     interface IJobService
     {
-        Task<bool> AddJob();
-        Task<List<Job>> GetJob();
-        Task<int> DeleteJob();
+        public List<Job> Jobs { get; }
+        
+        Task<bool> AddJob(JobDto job);
+        Task<bool> DeleteJob(string jobId);
+        Task<List<JobToReturnDto>> GetJobs();
+        Task<Job> GetJobByCategory(string category);
+        Task<Job> GetJobByIndustry(string industry);
+        Task<Job> EditJob(JobDto job);
 
-        Task SearchJob();
+        // Task SearchJob();
 
         Task ApplyForJob();
 

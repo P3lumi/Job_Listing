@@ -12,12 +12,12 @@ namespace JobListing.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorizationController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IJwtService _jwt;
         private readonly IUserService _userService;
 
-        public AuthorizationController(IJwtService jwt,IUserService userService)
+        public AuthController(IJwtService jwt,IUserService userService)
         {
             _jwt = jwt;
             _userService = userService;
@@ -25,16 +25,16 @@ namespace JobListing.UI.Controllers
 
         [HttpPost ("Login")]
 
-        public IActionResult Login(LogInDto model)
+        public IActionResult Login(LogInDto email)
         {
             
-            return Ok(_userService.GetUsers());
+            return Ok(_userService.GetUserByEmail(email.email));
         }
 
         [HttpPost("Logout")]
         public IActionResult Logout()
         {
-            
+
             return Ok();
         }
 
@@ -47,12 +47,12 @@ namespace JobListing.UI.Controllers
         }
 
 
-        [HttpPost("Forget Password")]
-        public IActionResult ForgetPassword()
-        {
+        //[HttpPost("Forget Password")]
+        //public IActionResult ForgetPassword()
+        //{
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
 
 

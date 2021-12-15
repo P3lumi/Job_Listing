@@ -11,12 +11,12 @@ namespace Models.DTO
     {
         [Required]
         [StringLength(20, MinimumLength = 3, ErrorMessage = "Title must not be less than 3 charcaters and more than 20 characters")]
-        [Display(Name ="Job Title")]
+        [Display(Name ="Job_Title")]
         public string JobTitle { get; set; }
 
 
         [Required] 
-        [Display(Name ="Job Description")]
+        [Display(Name ="Job_Description")]
         public string JobDescription { get; set; }
 
 

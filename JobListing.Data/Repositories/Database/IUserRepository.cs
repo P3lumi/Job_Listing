@@ -10,10 +10,13 @@ namespace JobListing.Data.Repositories.Database
 {
     public interface IUserRepository: ICRUDRepo 
     {
-        Task<bool> Add<T>(T entity);
-        Task<List<User>> GetUsers();
-        //Task<int> DeleteUser(string userid);
+        
+      
+        Task<List<User>> GetUsers(string email);
 
+        Task<List<User>> GetUserByEmail(string email);
+
+        Task<List<User>> GetUserById(string id);
 
 
     }

@@ -54,7 +54,7 @@ namespace JobListing.Data.Repositories.Database
             return response == 1? true : false;
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<User>> GetUsers(string email)
         {
             string _cmd = "SELECT * FROM [user]";
             if (_conn == null)
@@ -97,11 +97,11 @@ namespace JobListing.Data.Repositories.Database
 
         }
 
-       
 
-        public async Task<int> DeleteUser(string userid)
+
+        public async Task<bool> Delete<T>(T entity)
         {
-            var stmt = "DeleteUser FROM [user] WHERE userid = @userid";
+            var stmt = "DELETE FROM [user] WHERE id = @userid";
             var response = 0;
 
             try
@@ -110,18 +110,66 @@ namespace JobListing.Data.Repositories.Database
 
                 await using (var cmd = new SqlCommand(stmt, _conn))
                 {
-                    cmd.Parameters.AddWithValue("@userId", userid);
-                    response = (int)cmd.ExecuteNonQuery();
+
+                    response = cmd.ExecuteNonQuery();
 
                 }
-                return response;
             }
-            
             catch (Exception ex)
             {
                 throw;
             }
-           
+            finally
+            {
+                _conn.Close();
+            }
+
+            return response == 1 ? true : false;
+
+
+        }
+
+
+
+        public async Task<List<User>> GetUserByEmail(string email)
+        {
+            
+            string stmt = $"SELECT * FROM [user] WHERE email = @useremail";
+                if (_conn == null)
+                throw new Exception("Connection not established!");
+
+            var listOfUsers = new List<User>();
+
+            try
+            {
+                using (var cmd = new SqlCommand(stmt, _conn))
+                {
+                    _conn.Open();
+                    var res = cmd.ExecuteReader();
+
+                    while (res.HasRows)
+                    {
+                        while (res.Read())
+                        {
+                            listOfUsers.Add(new User
+                            {
+                                Id = res["id"].ToString(),
+                                Lastname = res["Lastname"].ToString(),
+                                Firstname = res["Firstname"].ToString(),
+                                Email = res["email"].ToString()
+                            });
+
+                        }
+
+                        await res.NextResultAsync();
+                    }
+                }
+                return listOfUsers;
+            }
+            catch (DbException ex)
+            {
+                throw new Exception(ex.Message);
+            }
             finally
             {
                 _conn.Close();
@@ -130,7 +178,85 @@ namespace JobListing.Data.Repositories.Database
 
         }
 
-        public Task<int> Delete(string userid)
+
+        public async Task<List<User>> GetUserById(string id)
+        {
+            string stmt = $"SELECT * FROM [user] WHERE id = @userid";
+            if (_conn == null)
+                throw new Exception("Connection not established!");
+
+            var listOfUsers = new List<User>();
+
+            try
+            {
+                using (var cmd = new SqlCommand(stmt, _conn))
+                {
+                    _conn.Open();
+                    var res = cmd.ExecuteReader();
+
+                    while (res.HasRows)
+                    {
+                        while (res.Read())
+                        {
+                            listOfUsers.Add(new User
+                            {
+                                Id = res["id"].ToString(),
+                                Lastname = res["Lastname"].ToString(),
+                                Firstname = res["Firstname"].ToString(),
+                                Email = res["email"].ToString()
+                            });
+
+                        }
+
+                        await res.NextResultAsync();
+                    }
+                }
+                return listOfUsers;
+            }
+            catch (DbException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                _conn.Close();
+            }
+        }
+
+
+        public async Task<bool> Edit<T>(T entity)
+        {
+
+            int response;
+            var user = entity as User;
+            string stmt = $"UPDATE [user] SET id = '{user.Id}', lastName = '{user.Lastname}', " +
+                $"firstName = '{user.Firstname}', email = '{user.Email}'" +
+                $"WHERE id = '{user.Id}' OR email = '{user.Email}'";
+
+            try
+            {
+                _conn.Open();
+
+                await using (var cmd = new SqlCommand(stmt, _conn))
+                {
+
+                    response = cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return response == 1 ? true : false;
+        }
+
+        public Task<bool> Add<T>(T entity, string role = "role")
         {
             throw new NotImplementedException();
         }
