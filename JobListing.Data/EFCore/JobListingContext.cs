@@ -16,11 +16,13 @@ namespace JobListing.Data.EFCore
                 
         }
 
-       
-        public DbSet<Address> Address { get; set; }
+        
         public DbSet<Job> Job { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Industry> Industry { get; set; }
+        public DbSet<Cv> Cvs { get; set; }
+
+        // public DbSet<Address> Address { get; set; }
 
 
     }

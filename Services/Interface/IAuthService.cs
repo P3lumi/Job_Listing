@@ -9,6 +9,6 @@ namespace JobListing.Core.Interface
 {
     public interface IAuthService
     {
-        Task<ResponseDto<LogInCredDto>> Login(string email, string password);
+        Task<LogInCredDto> Login(string email, string password, bool rememberMe);
     }
 }

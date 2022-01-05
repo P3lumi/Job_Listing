@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Models.DTO
 {
-    class RegisterDto
+   public class RegisterDto
     {
 
         [Required]
@@ -20,8 +20,12 @@ namespace Models.DTO
 
         [Required]
         [EmailAddress(ErrorMessage ="Please enter a valid email")]
-        public string Email { get; set; }  
+        public string Email { get; set; }
 
+
+        public string State { get; set; }
+
+        public string Country { get; set; }
 
         [Required]
         [StringLength(255, ErrorMessage = "Must be between 8 and 255 characters", MinimumLength = 8)]

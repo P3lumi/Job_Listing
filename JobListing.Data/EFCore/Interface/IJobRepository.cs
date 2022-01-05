@@ -11,8 +11,10 @@ namespace JobListing.Data.EFCore.Interface
    public interface IJobRepository:ICRUDRepo
     {
         Task<List<Job>> GetJobs();
-        Task<Job> GetJobByCategory(string category);
-        Task<Job> GetJobByIndustry(string industry);
+        Task<List<Job>> GetJobByCategory(string category);
+        Task<List<Job>> GetJobByIndustry(string industry);
 
+        Task<List<Category>> GetCategories();
+        Task<List<Industry>> GetIndustries();
     }
 }

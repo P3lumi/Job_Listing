@@ -1,173 +1,173 @@
-﻿using JobListing.Data.Repositories.Database;
-using Microsoft.Extensions.Configuration;
-using Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using JobListing.Data.Repositories.Database;
+//using Microsoft.Extensions.Configuration;
+//using Models;
+//using System;
+//using System.Collections.Generic;
+//using System.Data.Common;
+//using System.Data.SqlClient;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace JobListing.Data.Implementation
-{
-    public class JobRepository : IJobRepository
-    {
+//namespace JobListing.Data.Implementation
+//{
+//    public class JobRepository : IJobRepository
+//    {
 
-        private readonly IADOOperations _ado;
-        private readonly SqlConnection _conn;
-        private readonly IConfiguration _config;
+//        private readonly IADOOperations _ado;
+//        private readonly SqlConnection _conn;
+//        private readonly IConfiguration _config;
 
-        public JobRepository(IADOOperations aDOOperations, IConfiguration config)
-        {
-            _ado = aDOOperations;
-            _conn = new SqlConnection(config.GetSection("ConnectionStrings:Default").Value);
-            _config = config;
-        }
+//        public JobRepository(IADOOperations aDOOperations, IConfiguration config)
+//        {
+//            _ado = aDOOperations;
+//            _conn = new SqlConnection(config.GetSection("ConnectionStrings:Default").Value);
+//            _config = config;
+//        }
 
 
-        public async Task<bool> Add<T>(T entity)
-        {
-            var job = entity as Job;
+//        public async Task<bool> Add<T>(T entity)
+//        {
+//            var job = entity as Job;
             
-            var stmt = $"INSERT INTO [job] (JobId, JobTitle, SalaryRange, CategoryId, Category, IndustryId, Industry)" +
-                        $"VALUES('{job.Id}', '{job.Title}', '{job.SalaryRange}', '{job.CategoryId}', {job.category}, {job.IndustryId}, {job.industry})";
-            try
-            {
-                if (await _ado.ExecuteForQuery(stmt))
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+//            var stmt = $"INSERT INTO [job] (JobId, JobTitle, SalaryRange, CategoryId, Category, IndustryId, Industry)" +
+//                        $"VALUES('{job.Id}', '{job.Title}', '{job.SalaryRange}', '{job.CategoryId}', {job.category}, {job.IndustryId}, {job.industry})";
+//            try
+//            {
+//                if (await _ado.ExecuteForQuery(stmt))
+//                {
+//                    return true;
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                throw new Exception(ex.Message);
+//            }
 
-            return false;
-        }
-
-
-        public async Task<bool> Delete<T>(T entity)
-        {
-            var job = entity as Job;
-
-            var stmt = $"DELETE FROM [job] WHERE JobId = '{job.Id}' OR Category = '{job.category}' OR Industry = '{job.industry}";
-            try
-            {
-                if (await _ado.ExecuteForQuery(stmt))
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return false;
-        }
-
-        public async Task<bool> Edit<T>(T entity)
-        {
-            var job = entity as Job;
-
-            var stmt = $"UPDATE [job] SET JobId = '{job.Id}', JobTitle = '{job.Title}', " +
-                $"SalaryRange = '{job.SalaryRange}', Category = '{job.category}', Industry ='{job.industry}" +
-                $"WHERE id = '{job.Id}' OR Category = '{job.category}' OR Industry = '{job.industry}' ";
-
-            try
-            {
-                if (await _ado.ExecuteForQuery(stmt))
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-            return false;
-        }
+//            return false;
+//        }
 
 
+//        public async Task<bool> Delete<T>(T entity)
+//        {
+//            var job = entity as Job;
+
+//            var stmt = $"DELETE FROM [job] WHERE JobId = '{job.Id}' OR Category = '{job.category}' OR Industry = '{job.industry}";
+//            try
+//            {
+//                if (await _ado.ExecuteForQuery(stmt))
+//                {
+//                    return true;
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                throw new Exception(ex.Message);
+//            }
+
+//            return false;
+//        }
+
+//        public async Task<bool> Edit<T>(T entity)
+//        {
+//            var job = entity as Job;
+
+//            var stmt = $"UPDATE [job] SET JobId = '{job.Id}', JobTitle = '{job.Title}', " +
+//                $"SalaryRange = '{job.SalaryRange}', Category = '{job.category}', Industry ='{job.industry}" +
+//                $"WHERE id = '{job.Id}' OR Category = '{job.category}' OR Industry = '{job.industry}' ";
+
+//            try
+//            {
+//                if (await _ado.ExecuteForQuery(stmt))
+//                {
+//                    return true;
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                throw new Exception(ex.Message);
+//            }
+
+//            return false;
+//        }
 
 
-        public async Task<List<Job>> GetJobs()
-        {
-            var listOfJobs = new List<Job>();
 
-            string stmt = $"SELECT * FROM {_config.GetSection("Tables:jobTable").Value}";
 
-            try
-            {
-                var response = await _ado.ExecuteForReader(stmt, "JobId", "JobTitle", "SalaryRange", "Category", "Industry");
+//        public async Task<List<Job>> GetJobs()
+//        {
+//            var listOfJobs = new List<Job>();
 
-                if (response.Count <= 0)
-                {
-                    throw new Exception("No record found");
-                }
+//            string stmt = $"SELECT * FROM {_config.GetSection("Tables:jobTable").Value}";
 
-                foreach (var item in response)
-                {
-                    //var values = item.Values.ToArray();
+//            try
+//            {
+//                var response = await _ado.ExecuteForReader(stmt, "JobId", "JobTitle", "SalaryRange", "Category", "Industry");
 
-                    listOfJobs.Add(new Job
-                    {
-                        Id = item.Values[0],
-                        Title = item.Values[1],
-                        //SalaryRange = item.Values[2],
-                        //category = item.Values[3],
-                        //industry = item.Values[4]
-                    });
-                }
+//                if (response.Count <= 0)
+//                {
+//                    throw new Exception("No record found");
+//                }
 
-            }
-            catch (DbException ex)
-            {
-                throw new Exception(ex.Message);
-            }
+//                foreach (var item in response)
+//                {
+//                    //var values = item.Values.ToArray();
 
-            return listOfJobs;
-        }
+//                    listOfJobs.Add(new Job
+//                    {
+//                        Id = item.Values[0],
+//                        Title = item.Values[1],
+//                        //SalaryRange = item.Values[2],
+//                        //category = item.Values[3],
+//                        //industry = item.Values[4]
+//                    });
+//                }
 
-        public async Task<Job> GetUserByCategory(string category)
-        {
-            var job = new Job();
+//            }
+//            catch (DbException ex)
+//            {
+//                throw new Exception(ex.Message);
+//            }
 
-            string stmt = $"SELECT * FROM {_config.GetSection("Tables:jobTable").Value} WHERE Category = '{category}'";
+//            return listOfJobs;
+//        }
 
-            try
-            {
-                var response = await _ado.ExecuteForReader(stmt, "JobId", "JobTitle", "SalaryRange", "Category", "Industry");
+//        public async Task<Job> GetUserByCategory(string category)
+//        {
+//            var job = new Job();
 
-                if (response.Count <= 0)
-                {
-                    return null;
-                }
+//            string stmt = $"SELECT * FROM {_config.GetSection("Tables:jobTable").Value} WHERE Category = '{category}'";
 
-                job = new Job
-                {
-                    Id = response[0].Values[0],
-                    Title = response[0].Values[1],
-                    //SalaryRange = response[0].Values[2],
-                   // category = response[0].Values[3],
-                   // industry = response[0].Values[4],
-                };
+//            try
+//            {
+//                var response = await _ado.ExecuteForReader(stmt, "JobId", "JobTitle", "SalaryRange", "Category", "Industry");
 
-            }
-            catch (DbException ex)
-            {
-                throw new Exception(ex.Message);
-            }
+//                if (response.Count <= 0)
+//                {
+//                    return null;
+//                }
 
-            return job;
-        }
+//                job = new Job
+//                {
+//                    Id = response[0].Values[0],
+//                    Title = response[0].Values[1],
+//                    //SalaryRange = response[0].Values[2],
+//                   // category = response[0].Values[3],
+//                   // industry = response[0].Values[4],
+//                };
 
-        public Task<Job> GetUserByIndustry(string industry)
-        {
-            throw new NotImplementedException();
-        }
-    }
-}
+//            }
+//            catch (DbException ex)
+//            {
+//                throw new Exception(ex.Message);
+//            }
+
+//            return job;
+//        }
+
+//        public Task<Job> GetUserByIndustry(string industry)
+//        {
+//            throw new NotImplementedException();
+//        }
+//    }
+//}

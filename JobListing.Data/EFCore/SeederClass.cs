@@ -26,7 +26,7 @@ namespace JobListing.Data.EFCore
         }
 
         public async Task SeedMe()
-        {
+          {
             _ctx.Database.EnsureCreated();
 
             try
@@ -60,6 +60,27 @@ namespace JobListing.Data.EFCore
 
                         counter++;
 
+                    }
+                }
+
+                if (!_ctx.Category.Any())
+                {
+                    List<string> categories = new List<string> {"Remote", "FullTime", "On-Site", "Contract", "PartTime"};
+                    foreach(var category in categories)
+                    {
+
+                       await _ctx.Category.AddAsync(new Category {Name=category});
+                    }
+                }
+
+
+                if (!_ctx.Industry.Any())
+                {
+                    List<string> industries = new List<string> { "Health", "Tech", "Entertainment", "Education", "Banking and Finance" };
+                    foreach (var industry in industries)
+                    {
+
+                        await _ctx.Industry.AddAsync(new Industry { IndustryName = industry });
                     }
                 }
 

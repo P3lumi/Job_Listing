@@ -4,14 +4,16 @@ using JobListing.Data.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobListing.Data.Migrations
 {
     [DbContext(typeof(JobListingContext))]
-    partial class JobListingContextModelSnapshot : ModelSnapshot
+    [Migration("20220104200835_industryname")]
+    partial class industryname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,7 +296,7 @@ namespace JobListing.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("IndustryId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("StartPrice")
                         .HasColumnType("float");
@@ -307,8 +309,6 @@ namespace JobListing.Data.Migrations
                     b.HasIndex("AppUserId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("IndustryId");
 
                     b.ToTable("Job");
                 });
@@ -379,17 +379,9 @@ namespace JobListing.Data.Migrations
                         .WithMany("Jobs")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("Models.Category", "Category")
+                    b.HasOne("Models.Category", null)
                         .WithMany("Jobs")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("Models.Industry", "Industry")
-                        .WithMany()
-                        .HasForeignKey("IndustryId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Industry");
                 });
 
             modelBuilder.Entity("Models.AppUser", b =>

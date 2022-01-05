@@ -43,18 +43,18 @@ namespace JobListing.Core.Services
 
             bool response = false;
 
-            try
-            {
+            //try
+            //{
                 if (await _userRepo.Delete(email))
                 {
                     response = true;
 
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+           // }
+            //catch (Exception ex)
+            //{
+            //    throw new Exception(ex.Message);
+            //}
             return response;
             }
 
@@ -62,7 +62,7 @@ namespace JobListing.Core.Services
 
         public async Task<AppUser> EditUser(UserDto user)
         {
-             AppUser editedUser = null;
+            AppUser editedUser = null;
             try
             {
                 var userFromDb = await _userRepo.GetUserByEmail(user.Email);
@@ -70,8 +70,8 @@ namespace JobListing.Core.Services
                 {
                     // map new details to user fetched
                    
-                    userFromDb.LastName = user.Lastname;
-                    userFromDb.FirstName = user.Lastname;
+                    userFromDb.Lastname = user.Lastname;
+                    userFromDb.Firstname = user.Lastname;
                     userFromDb.Email = user.Email;
                 }
 
@@ -80,8 +80,8 @@ namespace JobListing.Core.Services
                     editedUser = new AppUser
                     {
                         
-                        FirstName = user.Firstname,
-                        LastName = user.Lastname,
+                        Firstname = user.Firstname,
+                        Lastname = user.Lastname,
                         Email = user.Email
                     };
                 }
@@ -92,9 +92,6 @@ namespace JobListing.Core.Services
                 throw new Exception(ex.Message);
             }
             return editedUser;
-
-            
-
         }
 
 

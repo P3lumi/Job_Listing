@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobListing.Data.Migrations
 {
     [DbContext(typeof(JobListingContext))]
-    [Migration("20211214182717_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20211215154903_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,29 +152,6 @@ namespace JobListing.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Models.Address", b =>
-                {
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                   
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AppUserId");
-
-                   
-
-                    b.ToTable("Address");
-                });
-
             modelBuilder.Entity("Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -194,13 +171,15 @@ namespace JobListing.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Firstname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Lastname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -218,6 +197,7 @@ namespace JobListing.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PassWord")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
@@ -283,6 +263,9 @@ namespace JobListing.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CategoryId")
                         .HasColumnType("nvarchar(450)");
 
@@ -290,7 +273,7 @@ namespace JobListing.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("IndustryId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("StartPrice")
                         .HasColumnType("float");
@@ -300,9 +283,9 @@ namespace JobListing.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("AppUserId");
 
-                    b.HasIndex("IndustryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Job");
                 });
@@ -358,28 +341,20 @@ namespace JobListing.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.Address", b =>
-                {
-                    b.HasOne("Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("Models.Job", b =>
                 {
-                    b.HasOne("Models.Category", "category")
+                    b.HasOne("Models.AppUser", null)
+                        .WithMany("Jobs")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("Models.Category", null)
                         .WithMany("Jobs")
                         .HasForeignKey("CategoryId");
+                });
 
-                    b.HasOne("Models.Industry", "industry")
-                        .WithMany()
-                        .HasForeignKey("IndustryId");
-
-                    b.Navigation("category");
-
-                    b.Navigation("industry");
+            modelBuilder.Entity("Models.AppUser", b =>
+                {
+                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("Models.Category", b =>

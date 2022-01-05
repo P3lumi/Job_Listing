@@ -1,4 +1,7 @@
 using AutoMapper;
+using JobListing.Common;
+using JobListing.Common.Helper;
+using JobListing.Common.Settings;
 using JobListing.Core.Implementation;
 using JobListing.Core.Interface;
 using JobListing.Core.Services;
@@ -20,6 +23,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,23 +44,42 @@ namespace JobListing
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
+            services.AddControllers().AddNewtonsoftJson(
+                    options => {
+                        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    }
+                );   
             services.AddDbContextPool<JobListingContext>(option =>
             option.UseSqlServer(Configuration.GetConnectionString("EfCore")));
 
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
 
+            }).AddEntityFrameworkStores<JobListingContext>()
+            .AddDefaultTokenProviders();
+
+
+            services.AddScoped<IJobService, JobService>();
+            services.AddScoped<IJobRepository, JobRepository>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddMvc().AddNewtonsoftJson();
+            services.AddScoped<ICvRepository, CvRepository>();
+            services.AddScoped<ICvService, CvService>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             //services.AddScoped<IADOOperations, ADOOperation>();
             services.AddTransient<SeederClass>();
-            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<JobListingContext>();
+           // services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<JobListingContext>();
 
 
 
             services.AddAutoMapper();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobListing", Version = "v1" });
@@ -118,7 +141,10 @@ namespace JobListing
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {

@@ -18,5 +18,6 @@ namespace Models.DTO
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string password { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using JobListing.Data.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobListing.Data.Migrations
 {
     [DbContext(typeof(JobListingContext))]
-    partial class JobListingContextModelSnapshot : ModelSnapshot
+    [Migration("20211215155711_updated-password")]
+    partial class updatedpassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,36 +244,12 @@ namespace JobListing.Data.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("Models.Cv", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PublicId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Cvs");
-                });
-
             modelBuilder.Entity("Models.Industry", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("IndustryName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -294,7 +272,7 @@ namespace JobListing.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("IndustryId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("StartPrice")
                         .HasColumnType("float");
@@ -307,8 +285,6 @@ namespace JobListing.Data.Migrations
                     b.HasIndex("AppUserId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("IndustryId");
 
                     b.ToTable("Job");
                 });
@@ -364,38 +340,19 @@ namespace JobListing.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Models.Cv", b =>
-                {
-                    b.HasOne("Models.AppUser", "AppUser")
-                        .WithMany("Cvs")
-                        .HasForeignKey("AppUserId");
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("Models.Job", b =>
                 {
                     b.HasOne("Models.AppUser", null)
                         .WithMany("Jobs")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("Models.Category", "Category")
+                    b.HasOne("Models.Category", null)
                         .WithMany("Jobs")
                         .HasForeignKey("CategoryId");
-
-                    b.HasOne("Models.Industry", "Industry")
-                        .WithMany()
-                        .HasForeignKey("IndustryId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Industry");
                 });
 
             modelBuilder.Entity("Models.AppUser", b =>
                 {
-                    b.Navigation("Cvs");
-
                     b.Navigation("Jobs");
                 });
 

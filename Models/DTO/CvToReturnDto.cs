@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Models.DTO
 {
-    public class LogInCredDto
+    public class CvToReturnDto
     {
 
-        public string Id { get; set; }
-        public string token { get; set; }
-        public bool status { get; set; }
+        public bool IsMain { get; set; }
+        public string Url { get; set; }
+        public string PublicId { get; set; }
 
     }
-
-
 }

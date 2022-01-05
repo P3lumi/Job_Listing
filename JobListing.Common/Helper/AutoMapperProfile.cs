@@ -15,8 +15,11 @@ namespace JobListing.Common.Helper
         public AutoMapperProfile()
         {
             CreateMap<AppUser, UserToReturnDto>();
-            CreateMap<Job, JobToReturnDto>();
+            CreateMap<JobDto, Job>();
+            CreateMap<Job, JobToReturnDto>().ForMember(x=>x.industryName,y=>y.MapFrom(j=>j.Industry.IndustryName)).ForMember(x => x.categoryName, y => y.MapFrom(j => j.Category.Name));
             CreateMap<Address, AddressToReturnDto>();
+            CreateMap<UploadCvDto, Cv>().ForMember(x => x.Url, y => y.MapFrom(j => j.Url)).ForMember(x => x.PublicId, y => y.MapFrom(j => j.PublicId));
+           
 
         }
 

@@ -23,7 +23,7 @@ namespace JobListing.Data.EFCore.Implementation
         {
             var job = entity as Job;
             var add = await context.Job.AddAsync(job);
-           
+            await context.SaveChangesAsync();
             return true;
         }
 
@@ -47,63 +47,103 @@ namespace JobListing.Data.EFCore.Implementation
         public Task<List<Job>> GetJobs()
         {
           
-            var get = context.Job;
-            List<Job> result = new List<Job>(); 
+            var get = context.Job.ToList();
+            var query = from j in context.Job
+                        join c in context.Category on j.CategoryId equals c.Id
+                        join i in context.Industry on j.IndustryId equals i.Id
+                        select new
+                        {
+                            j.Id,
+                            j.StartPrice,
+                            j.EndPrice,
+                            j.Title,
+                            c.Name,
+                            i.IndustryName,
+                        };
+            List<Job> result = new List<Job>();
+            foreach(var item in query)
+            {
+                result.Add(new Job
+                {
+                    Id = item.Id,
+                    StartPrice = item.StartPrice,
+                    EndPrice = item.EndPrice,
+                    Title = item.Title,
+                    Category = new Category {
+                        Name = item.Name},
+                    Industry = new Industry { IndustryName = item.IndustryName}
+                });
+            }
            return Task.FromResult(result);
         }
 
-        public Task<Job> GetJobByCategory(string category)
+        public Task<List<Job>> GetJobByCategory(string categoryId)
         {
-            var res = from j in context.Job join c in context.Category on j.CategoryId equals c.Id where c.Name == category select new { 
-            
-                j.Id,
-                j.Title,
-                j.StartPrice,
-                j.EndPrice,
-                j.industry,
-                
 
-            };
-            var result = new Job();
-            foreach(var item in res)
-            {
-                result.Id = item.Id;
-                result.Title = item.Title;
-                result.StartPrice = item.StartPrice;
-                result.EndPrice = item.EndPrice;
-                result.industry = item.industry;
+            var res = context.Job.Where(x => x.CategoryId == categoryId).ToList();
 
-            }
-            return Task.FromResult(result);
+            return Task.FromResult(res);
+            //var res = from j in context.Job join c in context.Category on j.CategoryId equals c.Id where c.Name == category select new { 
+
+            //    j.Id,
+            //    j.Title,
+            //    j.StartPrice,
+            //    j.EndPrice,
+            //    j.industry,
+
+            //};
+            //var result = new Job();
+            //foreach(var item in res)
+            //{
+            //    result.Id = item.Id;
+            //    result.Title = item.Title;
+            //    result.StartPrice = item.StartPrice;
+            //    result.EndPrice = item.EndPrice;
+            //    result.industry = item.industry;
+            //}
         }
 
-        public Task<Job> GetJobByIndustry(string industry)
+        public Task<List<Job>> GetJobByIndustry(string industryId)
         {
-            var res = from j in context.Job
-                      join i in context.Industry on j.IndustryId equals i.Id
-                      where i.Name == industry
-                      select new
-                      {
+            var res = context.Job.Where(x => x.IndustryId == industryId).ToList();
+            return Task.FromResult(res);
+            //var res = from j in context.Job
+            //          join i in context.Industry on j.IndustryId equals i.Id
+            //          where i.Name == industry
+            //          select new
+            //          {
 
-                          j.Id,
-                          j.Title,
-                          j.StartPrice,
-                          j.EndPrice,
-                          j.category,
+            //              j.Id,
+            //              j.Title,
+            //              j.StartPrice,
+            //              j.EndPrice,
+            //              j.category,
 
 
-                      };
-            var result = new Job();
-            foreach (var item in res)
-            {
-                result.Id = item.Id;
-                result.Title = item.Title;
-                result.StartPrice = item.StartPrice;
-                result.EndPrice = item.EndPrice;
-                result.category = item.category;
+            //          };
+            //var result = new Job();
+            //foreach (var item in res)
+            //{
+            //    result.Id = item.Id;
+            //    result.Title = item.Title;
+            //    result.StartPrice = item.StartPrice;
+            //    result.EndPrice = item.EndPrice;
+            //    result.category = item.category;
 
-            }
-            return Task.FromResult(result);
+            //}
+            
+        }
+
+        public async Task<List<Category>> GetCategories()
+        {
+            var res = context.Category.ToList();
+            return res;
+        }
+
+        public async Task<List<Industry>> GetIndustries()
+        {
+            var res = context.Industry.ToList();
+            return res;
         }
     }
 }

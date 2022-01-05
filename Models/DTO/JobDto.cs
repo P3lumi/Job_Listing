@@ -29,10 +29,10 @@ namespace Models.DTO
 
 
         [Required]
-        public Category category { get; set; }
+        public string category { get; set; }
 
 
         [Required]
-        public Industry industry { get; set; }
+        public string industry { get; set; }
     }
 }

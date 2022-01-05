@@ -1,10 +1,11 @@
-﻿using Models.DTO;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http.ModelBinding;
+
 
 namespace JobListing.Common
 {
@@ -74,9 +75,6 @@ namespace JobListing.Common
             return res;
         }
 
-        public static bool CompareHash(string password, object passwordHash, object passwordSalt)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

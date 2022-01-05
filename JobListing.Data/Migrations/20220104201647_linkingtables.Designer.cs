@@ -4,14 +4,16 @@ using JobListing.Data.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JobListing.Data.Migrations
 {
     [DbContext(typeof(JobListingContext))]
-    partial class JobListingContextModelSnapshot : ModelSnapshot
+    [Migration("20220104201647_linkingtables")]
+    partial class linkingtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

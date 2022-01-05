@@ -11,8 +11,12 @@ namespace Models.JobDto
 
         public string Title { get; set; }
         public string SalaryRange { get; set; }
-        public Category category { get; set; }
-        public Industry industry { get; set; }
+
+        public string StartPrice { get; set; }
+
+        public string EndPrice { get; set; }
+        public string categoryName { get; set; }
+        public string industryName { get; set; }
 
     }
 }

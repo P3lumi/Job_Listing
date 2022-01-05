@@ -11,20 +11,12 @@ namespace Models
     {
 
         public string Title { get; set; }
-       // public string Description { get; set; }
-
-
         public double StartPrice { get; set; }
         public double EndPrice { get; set; }
-
-         
         public string CategoryId { get; set; }
-        public Category category { get; set; }
-
-
+        public Category Category { get; set; }
         public string IndustryId { get; set; }
-        public Industry industry { get; set; }
-
+        public Industry Industry { get; set; }
 
         public string SalaryRange
         {
