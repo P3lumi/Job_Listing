@@ -33,13 +33,34 @@ namespace JobListing.Core.Implementation
         }
         public async Task<LogInCredDto> Login(string email, string password, bool rememberMe)
         {
-
+            var res = new LogInCredDto();
+           
             var user = await _userMgr.FindByEmailAsync(email);
-            var res = await _signinMgr.PasswordSignInAsync(user, password, rememberMe, false);
-            if (!res.Succeeded)
+            if (user==null)
             {
-                return new LogInCredDto { status = false };
+                res.status = false;
+                return res;
             }
+            else
+            {
+                var result = await _signinMgr.PasswordSignInAsync(user, password, rememberMe, false);
+                
+                
+
+                if(result == null )
+                {
+                    res.status = false;
+                    return res;
+                }
+
+                else if (!result.Succeeded)
+                {
+                     res.status = false ;
+                    return res;
+                }
+
+            }
+            
 
             //get jwt token
             var userRoles = await _userMgr.GetRolesAsync(user);

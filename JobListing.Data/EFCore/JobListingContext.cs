@@ -22,7 +22,7 @@ namespace JobListing.Data.EFCore
         public DbSet<Industry> Industry { get; set; }
         public DbSet<Cv> Cvs { get; set; }
 
-        // public DbSet<Address> Address { get; set; }
+       
 
 
     }
