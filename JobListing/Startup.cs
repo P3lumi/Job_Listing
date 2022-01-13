@@ -50,7 +50,7 @@ namespace JobListing
                     }
                 );   
             services.AddDbContextPool<JobListingContext>(option =>
-            option.UseSqlServer(Configuration.GetConnectionString("EfCore")));
+            option.UseSqlite(Configuration.GetConnectionString("EfCore")));
 
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
@@ -132,8 +132,7 @@ namespace JobListing
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "JobListing v1"));
+               
             }
 
             app.UseHttpsRedirection();
@@ -152,9 +151,10 @@ namespace JobListing
             });
 
 
-            seed.SeedMe().Wait();
+            //seed.SeedMe().Wait();
 
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "JobListing v1"));
 
         }
     }
